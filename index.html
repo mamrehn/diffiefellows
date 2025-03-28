@@ -1,10 +1,40 @@
 <!doctype html>
-<html lang=en>
+<html lang=de>
 <head>
-<meta charset=utf-8>
-<title>blah</title>
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diffie Fellows</title>
 </head>
 <body>
-<embed src="Cafe Diffie Fellows.pdf" type="application/pdf">
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Create the embed element
+      const pdfEmbed = document.createElement('embed');
+      
+      // Randomly choose between two PDFs
+      const pdfs = [
+          'Cafe Diffie Fellows.pdf',
+          'Cafe Diffie Fellows hacked.pdf'
+      ];
+      const selectedPdf = pdfs[Math.floor(Math.random() * pdfs.length)];
+      
+      // Set embed attributes
+      pdfEmbed.setAttribute('src', selectedPdf);
+      pdfEmbed.setAttribute('type', 'application/pdf');
+      
+      // Style to make PDF fullscreen and width of the screen
+      pdfEmbed.style.width = '100%';
+      pdfEmbed.style.height = '100vh';
+      pdfEmbed.style.border = 'none';
+      pdfEmbed.style.margin = '0';
+      pdfEmbed.style.padding = '0';
+      pdfEmbed.style.position = 'absolute';
+      pdfEmbed.style.top = '0';
+      pdfEmbed.style.left = '0';
+      
+      // Add to body
+      document.body.appendChild(pdfEmbed);
+    });
+  </script>
 </body>
 </html>
