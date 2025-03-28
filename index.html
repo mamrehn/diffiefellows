@@ -8,15 +8,42 @@
 <body>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Fingerprinting function to generate a consistent identifier for the device/browser
+      function generateFingerprint() {
+          const nav = window.navigator;
+          const screen = window.screen;
+          const guid = nav.userAgent + 
+              nav.language + 
+              nav.hardwareConcurrency + 
+              nav.deviceMemory + 
+              screen.height + 
+              screen.width + 
+              screen.colorDepth;
+          
+          // Simple hash function to convert the string to a number
+          let hash = 0;
+          for (let i = 0; i < guid.length; i++) {
+              const char = guid.charCodeAt(i);
+              hash = ((hash << 5) - hash) + char;
+              hash = hash & hash; // Convert to 32-bit integer
+          }
+          
+          return Math.abs(hash);
+      }
+  
       // Create the embed element
       const pdfEmbed = document.createElement('embed');
       
-      // Randomly choose between two PDFs
+      // Define PDFs
       const pdfs = [
           'Cafe Diffie Fellows.pdf',
           'Cafe Diffie Fellows hacked.pdf'
       ];
-      const selectedPdf = pdfs[Math.floor(Math.random() * pdfs.length)];
+      
+      // Use fingerprint to deterministically select PDF
+      const fingerprint = generateFingerprint();
+      const selectedPdfIndex = fingerprint % pdfs.length;
+      const selectedPdf = pdfs[selectedPdfIndex];
       
       // Set embed attributes
       pdfEmbed.setAttribute('src', selectedPdf);
